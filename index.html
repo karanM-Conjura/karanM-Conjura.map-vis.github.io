@@ -1,107 +1,159 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Geograph Revenue Insight</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
+    <meta charset="utf-8">
+    <title>Geograph Revenue Insight</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
     <h1> Total Revenue generated per country</h1>
-<div id="map"></div>
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1Ijoia2FyYW4tYzAiLCJhIjoiY2xxNmd1ZGdrMHIwMTJrcGFkYWxzbWE2NyJ9.W1usXxcSztAC5kqG-GqQOw';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        center: [-6.33,53.33], // starting position [lng, lat]
-        style: 'mapbox://styles/mapbox/dark-v11', //'mapbox://styles/mapbox/light-v11'
-        zoom: 10 // starting zoom
-    });
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2FyYW4tYzAiLCJhIjoiY2xxNmd1ZGdrMHIwMTJrcGFkYWxzbWE2NyJ9.W1usXxcSztAC5kqG-GqQOw';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            center: [-6.33, 53.33], // starting position [lng, lat]
+            style: 'mapbox://styles/mapbox/dark-v11', //'mapbox://styles/mapbox/light-v11'
+            zoom: 10 // starting zoom
+        });
+
+        // Create Conjura marker
+        const conjura = new mapboxgl.Marker({
+            scale: 2
+        })
+        map.on('load', () => {
+            // Load  image from URL.
+            map.loadImage(
+                'https://raw.githubusercontent.com/karanM-Conjura/map-vis/main/conjura_owl.jpeg.png',
+                (error, image) => {
+                    if (error) throw error;
+
+                    map.addImage('owl', image);
+
+                    map.addSource('point', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [-6.33, 53.33]
+                                    }
+                                }
+                            ]
+                        }
+                    });
+
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'point', // data source
+                        'layout': {
+                            'icon-image': 'owl', // image reference
+                            'icon-size': 0.25
+                        }
+                    });
+                }
+            );
+        });
+
+        // Create uk popup
+        const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+            'A new record has been set for revenue generated from this country!'
+        );
+
+        // Add UK Marker
+        const uk = new mapboxgl.Marker({
+            color: '#b5de2b',
+            scale: 5
+        })
+
+            .setLngLat([-1.348228, 52.617432])
+            .setPopup(popup)
+            .addTo(map);
 
 
-    // Create uk popup
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-    'A new record has been set for revenue generated from this country!'
-    );
+        // Create australia popup
+        const popup2 = new mapboxgl.Popup({ offset: 25 }).setText(
+            'Second highest grossing revenue!'
+        );
 
-    // Add UK Marker
-    const uk = new mapboxgl.Marker({
-        color: '#b5de2b',
-        scale: 5
-    })
+        // Add Aus Marker
+        const australia = new mapboxgl.Marker({
+            color: '#6ece58',
+            scale: 3.5
+        })
 
-    .setLngLat([-1.348228,52.617432])
-    .setPopup(popup)
-    .addTo(map);
+            .setLngLat([137.846489, -27.695992])
+            .setPopup(popup2)
+            .addTo(map);
 
+        // Create US popup
+        const popup3 = new mapboxgl.Popup({ offset: 25 }).setText(
+            'Down by 45% compared to last year...'
+        );
 
-    // Create australia popup
-    const popup2 = new mapboxgl.Popup({ offset: 25 }).setText(
-    'Second highest grossing revenue!'
-    );
+        // Add US Marker
+        const us = new mapboxgl.Marker({
+            color: '#35b779',
+            scale: 2.5
+        })
 
-    // Add Aus Marker
-    const australia = new mapboxgl.Marker({
-        color: '#6ece58',
-        scale: 3.5
-    })
+            .setLngLat([-95.450249, 36.319828])
+            .setPopup(popup3)
+            .addTo(map);
 
-    .setLngLat([137.846489,-27.695992])
-    .setPopup(popup2)
-    .addTo(map);
+        // Create germany popup
+        const popup4 = new mapboxgl.Popup({ offset: 25 }).setText(
+            'Up by 5% from last year. Marketing Spend should be focused here.'
+        );
 
-    // Create US popup
-    const popup3 = new mapboxgl.Popup({ offset: 25 }).setText(
-    'Down by 45% compared to last year...'
-    );
+        // Add germany Marker
+        const germany = new mapboxgl.Marker({
+            color: '#31688e',
+            scale: 1
+        })
 
-    // Add US Marker
-    const us = new mapboxgl.Marker({
-        color: '#35b779',
-        scale: 2.5
-    })
+            .setLngLat([9.942112, 51.400223])
+            .setPopup(popup4)
+            .addTo(map);
 
-    .setLngLat([-95.450249,36.319828])
-    .setPopup(popup3)
-    .addTo(map);
+        // Create newzealand popup
+        const popup5 = new mapboxgl.Popup({ offset: 25 }).setText(
+            '35% increase from last year. Continue investing in this region.'
+        );
 
-    // Create germany popup
-    const popup4 = new mapboxgl.Popup({ offset: 25 }).setText(
-    'Up by 5% from last year. Marketing Spend should be focused here.'
-    );
+        // Add newzealand Marker
+        const newzealand = new mapboxgl.Marker({
+            color: '#440154',
+            scale: 1
+        })
 
-    // Add germany Marker
-    const germany = new mapboxgl.Marker({
-    color: '#31688e',
-    scale: 1
-    })
+            .setLngLat([9.942112, 51.400223])
+            .setPopup(popup5)
+            .addTo(map);
 
-    .setLngLat([9.942112,51.400223])
-    .setPopup(popup4)
-    .addTo(map);
-
-     // Create newzealand popup
-     const popup5 = new mapboxgl.Popup({ offset: 25 }).setText(
-    '35% increase from last year. Continue investing in this region.'
-    );
-
-    // Add newzealand Marker
-    const newzealand = new mapboxgl.Marker({
-    color: '#440154',
-    scale: 1
-    })
-
-    .setLngLat([9.942112,51.400223])
-    .setPopup(popup5)
-    .addTo(map);   
-
-</script>
+    </script>
 
 </body>
-</html>
 
+</html>
