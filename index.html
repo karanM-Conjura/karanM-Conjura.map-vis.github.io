@@ -12,13 +12,14 @@ body { margin: 0; padding: 0; }
 </style>
 </head>
 <body>
+    <h1> Total Revenue generated per country</h1>
 <div id="map"></div>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1Ijoia2FyYW4tYzAiLCJhIjoiY2xxNmd1ZGdrMHIwMTJrcGFkYWxzbWE2NyJ9.W1usXxcSztAC5kqG-GqQOw';
     const map = new mapboxgl.Map({
         container: 'map', // container ID
         center: [-6.33,53.33], // starting position [lng, lat]
-        style: 'mapbox://styles/mapbox/light-v11',
+        style: 'mapbox://styles/mapbox/dark-v11', //'mapbox://styles/mapbox/light-v11'
         zoom: 10 // starting zoom
     });
 
@@ -47,14 +48,14 @@ body { margin: 0; padding: 0; }
     // Add Aus Marker
     const australia = new mapboxgl.Marker({
         color: '#6ece58',
-        scale: 3
+        scale: 3.5
     })
 
     .setLngLat([137.846489,-27.695992])
     .setPopup(popup2)
     .addTo(map);
 
-    // Create us popup
+    // Create US popup
     const popup3 = new mapboxgl.Popup({ offset: 25 }).setText(
     'Down by 45% compared to last year...'
     );
@@ -62,12 +63,42 @@ body { margin: 0; padding: 0; }
     // Add US Marker
     const us = new mapboxgl.Marker({
         color: '#35b779',
-        scale: 1
+        scale: 2.5
     })
 
     .setLngLat([-95.450249,36.319828])
     .setPopup(popup3)
     .addTo(map);
+
+    // Create germany popup
+    const popup4 = new mapboxgl.Popup({ offset: 25 }).setText(
+    'Up by 5% from last year. Marketing Spend should be focused here.'
+    );
+
+    // Add germany Marker
+    const germany = new mapboxgl.Marker({
+    color: '#31688e',
+    scale: 1
+    })
+
+    .setLngLat([9.942112,51.400223])
+    .setPopup(popup4)
+    .addTo(map);
+
+     // Create newzealand popup
+     const popup5 = new mapboxgl.Popup({ offset: 25 }).setText(
+    '35% increase from last year. Continue investing in this region.'
+    );
+
+    // Add newzealand Marker
+    const newzealand = new mapboxgl.Marker({
+    color: '#440154',
+    scale: 1
+    })
+
+    .setLngLat([9.942112,51.400223])
+    .setPopup(popup5)
+    .addTo(map);   
 
 </script>
 
