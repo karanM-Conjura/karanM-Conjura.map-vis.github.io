@@ -34,47 +34,49 @@
             zoom: 10 // starting zoom
         });
 
-        // Create Conjura marker
-        const conjura = new mapboxgl.Marker({
-            scale: 2
-        })
-        map.on('load', () => {
-            // Load  image from URL.
-            map.loadImage(
-                'https://raw.githubusercontent.com/karanM-Conjura/map-vis/main/conjura_owl.jpeg.png',
-                (error, image) => {
-                    if (error) throw error;
+        // // Create Conjura marker
+        // const conjura = new mapboxgl.Marker({
+        //     scale: 0.6
+        // })
+        // map.on('load', () => {
+        //     // Load  image from URL.
+        //     map.loadImage(
+        //         'https://raw.githubusercontent.com/karanM-Conjura/map-vis/main/conjura_owl.jpeg.png',
+        //         (error, image) => {
+        //             if (error) throw error;
 
-                    map.addImage('owl', image);
+        //             map.addImage('owl', image);
 
-                    map.addSource('point', {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                                {
-                                    'type': 'Feature',
-                                    'geometry': {
-                                        'type': 'Point',
-                                        'coordinates': [-6.33, 53.33]
-                                    }
-                                }
-                            ]
-                        }
-                    });
+        //             map.addSource('point', {
+        //                 'type': 'geojson',
+        //                 'data': {
+        //                     'type': 'FeatureCollection',
+        //                     'features': [
+        //                         {
+        //                             'type': 'Feature',
+        //                             'geometry': {
+        //                                 'type': 'Point',
+        //                                 'coordinates': [-6.33, 53.33]
+        //                             }
+        //                         }
+        //                     ]
+        //                 }
+        //             });
 
-                    map.addLayer({
-                        'id': 'points',
-                        'type': 'symbol',
-                        'source': 'point', // data source
-                        'layout': {
-                            'icon-image': 'owl', // image reference
-                            'icon-size': 0.25
-                        }
-                    });
-                }
-            );
-        });
+        //             map.addLayer({
+        //                 'id': 'points',
+        //                 'type': 'symbol',
+        //                 'source': 'point', // data source
+        //                 'layout': {
+        //                     'icon-image': 'owl', // image reference
+        //                     'icon-size': 0.25
+        //                 }
+        //             });
+        //         }
+        //     );
+        // });
+
+        
 
         // Create uk popup
         const popup = new mapboxgl.Popup({ offset: 25 }).setText(
