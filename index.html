@@ -21,6 +21,10 @@ body { margin: 0; padding: 0; }
         style: 'mapbox://styles/mapbox/light-v11',
         zoom: 10 // starting zoom
     });
+    // Add Marker
+    const uk1 = new mapboxgl.Marker()
+    .setLngLat([-1.348228,52.617432])
+    .addTo(map);
 </script>
 
 </body>
