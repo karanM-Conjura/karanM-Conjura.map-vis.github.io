@@ -1,4 +1,4 @@
-alert('Hello from Conjura!');
+// alert('Hello from Conjura!');
 
 // Mapbox logic
 
