@@ -54,14 +54,19 @@ body { margin: 0; padding: 0; }
     .setPopup(popup2)
     .addTo(map);
 
-    // Add US Marker
+    // Create us popup
+    const popup3 = new mapboxgl.Popup({ offset: 25 }).setText(
+    'Down by 45% compared to last year...'
+    );
 
+    // Add US Marker
     const us = new mapboxgl.Marker({
         color: '#21918c',
         scale: 1
     })
 
     .setLngLat([-95.450249,36.319828])
+    .setPopup(popup3)
     .addTo(map);
 
 </script>
