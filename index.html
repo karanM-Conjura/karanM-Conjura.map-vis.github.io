@@ -21,10 +21,49 @@ body { margin: 0; padding: 0; }
         style: 'mapbox://styles/mapbox/light-v11',
         zoom: 10 // starting zoom
     });
-    // Add Marker
-    const uk1 = new mapboxgl.Marker()
+
+
+    // Create uk popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+    'A new record has been set for revenue generated from this country!'
+    );
+
+    // Add UK Marker
+    const uk = new mapboxgl.Marker({
+        color: '#440154',
+        scale: 5
+    })
+
     .setLngLat([-1.348228,52.617432])
+    .setPopup(popup)
     .addTo(map);
+
+
+    // Create australia popup
+    const popup2 = new mapboxgl.Popup({ offset: 25 }).setText(
+    'Second highest grossing revenue!'
+    );
+
+    // Add Aus Marker
+    const australia = new mapboxgl.Marker({
+        color: '#3b528b',
+        scale: 3
+    })
+
+    .setLngLat([137.846489,-27.695992])
+    .setPopup(popup2)
+    .addTo(map);
+
+    // Add US Marker
+
+    const us = new mapboxgl.Marker({
+        color: '#21918c',
+        scale: 1
+    })
+
+    .setLngLat([-95.450249,36.319828])
+    .addTo(map);
+
 </script>
 
 </body>
